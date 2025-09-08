@@ -3,7 +3,7 @@ pipeline {
 
   environment {
     REGION       = 'southamerica-west1'
-    REPO_NAME    = 'apps'
+    REPO_NAME    = 'fastapi'
     SERVICE_NAME = 'fastapi-demo'
     PROJECT_ID   = 'durable-ring-471120-i8'
     REGISTRY_HOST = "${REGION}-docker.pkg.dev"
