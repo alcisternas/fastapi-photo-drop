@@ -6,8 +6,7 @@ pipeline {
     REGION       = 'southamerica-west1'
     REPO_NAME    = 'apps'
     SERVICE_NAME = 'fastapi-demo'
-    # Si no usas cred 'gcp-project-id', escribe el ID literal:
-    // PROJECT_ID = 'TU_PROYECTO'
+    PROJECT_ID   = 'durable-ring-471120-i8'
     REGISTRY_HOST = "${REGION}-docker.pkg.dev"
   }
 
@@ -86,7 +85,7 @@ pipeline {
       }
     }
     failure {
-      echo "❌ Falló el pipeline. Revisa los logs (auth, permisos, build, deploy)."
+      echo '❌ Falló el pipeline. Revisa los logs (auth, permisos, build, deploy).'
     }
   }
 }
