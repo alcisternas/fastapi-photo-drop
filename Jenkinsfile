@@ -62,15 +62,10 @@ pipeline {
 
     stage('Smoke Test') {
       steps {
-        script {
-          def URL = sh(returnStdout: true, script: "gcloud run services describe ${SERVICE_NAME} --region ${REGION} --format='value(status.url)'").trim()
-          echo "Service URL: ${URL}"
-          sh """
-            # Espera breve para que quede ready
-            sleep 5
-            curl -fsS ${URL}/healthz
-          """
-        }
+        sh '''
+            URL=$(gcloud run services describe $SERVICE --region=$REGION --format='value(status.url)')
+            curl -fsS $URL/docs || exit 1
+        '''
       }
     }
   }
