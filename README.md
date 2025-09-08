@@ -12,7 +12,7 @@ Este challenge práctico consiste en **construir y desplegar** una aplicación *
 
 ---
 
-## 📦 Pre-requisitos
+## 📦 Pre-requisitosssss
 
 1. Proyecto en **Google Cloud Platform (GCP)** ya creado.
 2. **Jenkins** instalado en una VM de GCP (o local con acceso a internet).
