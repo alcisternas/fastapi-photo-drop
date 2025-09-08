@@ -2,10 +2,10 @@ pipeline {
   agent any
 
   environment {
-    REGION       = 'southamerica-west1'
-    REPO_NAME    = 'apps'
-    SERVICE_NAME = 'fastapi-demo'
-    PROJECT_ID   = 'durable-ring-471120-i8'
+    REGION        = 'southamerica-west1'
+    REPO_NAME     = 'apps'
+    SERVICE_NAME  = 'fastapi-demo'
+    PROJECT_ID    = 'durable-ring-471120-i8'
     REGISTRY_HOST = "${REGION}-docker.pkg.dev"
   }
 
@@ -63,8 +63,9 @@ pipeline {
     stage('Smoke Test') {
       steps {
         sh '''
-            URL=$(gcloud run services describe $SERVICE --region=$REGION --format='value(status.url)')
-            curl -fsS $URL/docs || exit 1
+          URL=$(gcloud run services describe ${SERVICE_NAME} --region=${REGION} --format='value(status.url)')
+          echo "Haciendo smoke test contra $URL/docs"
+          curl -fsS "$URL/docs" || exit 1
         '''
       }
     }
@@ -82,4 +83,3 @@ pipeline {
     }
   }
 }
-
