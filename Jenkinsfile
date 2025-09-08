@@ -2,7 +2,6 @@ pipeline {
   agent any
 
   environment {
-    PROJECT_ID   = credentials('gcp-project-id')  // opcional si lo guardas como secret text
     REGION       = 'southamerica-west1'
     REPO_NAME    = 'apps'
     SERVICE_NAME = 'fastapi-demo'
