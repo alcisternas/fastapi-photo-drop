@@ -1,19 +1,26 @@
-from fastapi import FastAPI
-from pydantic import BaseModel
+from fastapi import FastAPI, File, UploadFile, HTTPException
+from app.gcs import upload_image_to_bucket
 
-app = FastAPI(title="FastAPI on Cloud Run", version="1.0.0")
+app = FastAPI(title="Photo Drop", version="1.0.0")
 
-class Ping(BaseModel):
-    message: str = "pong"
+# Configuración del bucket (puedes usar una variable de entorno)
+BUCKET_NAME = "photo-drop-bucket"
+
+@app.get("/")
+def root():
+    return {"message": "Bienvenido a Photo Drop!"}
 
 @app.get("/healthz")
 def healthz():
     return {"status": "ok"}
 
-@app.get("/ping", response_model=Ping)
-def ping():
-    return Ping()
+@app.post("/upload")
+async def upload(file: UploadFile = File(...)):
+    if not file.content_type.startswith("image/"):
+        raise HTTPException(status_code=400, detail="Solo imágenes por favor.")
 
-@app.get("/")
-def root():
-    return {"hello": "cloud run + jenkins"}
+    try:
+        public_url = upload_image_to_bucket(file, BUCKET_NAME)
+        return {"url": public_url}
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=str(e))
