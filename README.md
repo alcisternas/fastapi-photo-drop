@@ -1,53 +1,67 @@
-# 🚀 Challenge DevOps: Desplegar FastAPI en Cloud Run con Jenkins
+# 📸 Photo Drop – DevOps + FastAPI + Cloud Run
 
-Este challenge práctico consiste en **construir y desplegar** una aplicación **FastAPI** en **Cloud Run (GCP)** utilizando **Jenkins** como orquestador de CI/CD.
+**Photo Drop** es una API web hecha con **FastAPI** que permite a los usuarios subir imágenes a un bucket de **Google Cloud Storage**. 
 
----
-
-## 🎯 Objetivos de aprendizaje
-- Construir una **imagen Docker** de una API FastAPI.
-- Publicar la imagen en **Artifact Registry**.
-- Desplegar la app en **Cloud Run** usando Jenkins.
-- Validar el despliegue con un **smoke test**.
+- ⚙️ Docker
+- 🧪 Jenkins (CI/CD)
+- ☁️ Google Cloud Run
+- 🗄️ Google Cloud Storage
 
 ---
 
-## 📦 Pre-requisitos
+## 📦 Funcionalidad
 
-1. Proyecto en **Google Cloud Platform (GCP)** ya creado.
-2. **Jenkins** instalado en una VM de GCP (o local con acceso a internet).
-3. **Docker** y **gcloud CLI** instalados en el servidor Jenkins.
-4. Servicio de **Artifact Registry** habilitado en GCP.
-5. **Cuenta de servicio** con permisos:
-   - `roles/run.admin`
-   - `roles/artifactregistry.writer`
-   - `roles/iam.serviceAccountUser`
-6. Clave JSON de la cuenta de servicio guardada como credencial en Jenkins:
-   - Tipo: *Secret file*
-   - ID: `gcp-sa-key`
+- 📤 Sube imágenes al bucket `photo-drop-bucket` en GCS
+- 🔗 Retorna una URL pública para cada imagen
+- 🔒 Valida que el archivo sea una imagen
+- 🔁 Despliegue automatizado con Jenkins + Cloud Run
+- 🌍 API documentada con Swagger en `/docs`
 
 ---
 
-## 📂 Estructura del repositorio
+## 🚀 Tecnologías Usadas
 
-fastapi-cloudrun/
-├─ app/
-│ └─ main.py
-├─ requirements.txt
-├─ Dockerfile
-├─ .dockerignore
-└─ Jenkinsfile
+- [FastAPI](https://fastapi.tiangolo.com/)
+- [Uvicorn](https://www.uvicorn.org/)
+- [Docker](https://www.docker.com/)
+- [Google Cloud Storage](https://cloud.google.com/storage)
+- [Google Cloud Run](https://cloud.google.com/run)
+- [Jenkins](https://www.jenkins.io/)
 
-⚙️ Jenkinsfile
+---
 
-El pipeline deberia realizarrealiza estos pasos:
+## 📁 Estructura del Proyecto
 
-Autenticación con GCP.
+├── app
+│ ├── main.py # API principal
+│ └── gcs.py # Función para subir imágenes a GCS
+├── requirements.txt # Dependencias de Python
+├── Dockerfile # Imagen Docker
+├── Jenkinsfile # Pipeline CI/CD
+└── README.md # Este archivo
 
-Build & push de la imagen a Artifact Registry.
+## 📁 Endpoints
 
-Deploy a Cloud Run.
+| Método | Ruta       | Descripción                       |
+| ------ | ---------- | --------------------------------- |
+| GET    | `/`        | Mensaje de bienvenida             |
+| GET    | `/healthz` | Health check                      |
+| POST   | `/upload`  | Sube imagen a GCS y retorna URL   |
+| GET    | `/docs`    | Documentación Swagger interactiva |
 
 
+## 📁 Buckets y permisos
+
+- gsutil mb -l southamerica-west1 gs://photo-drop-bucket
+- gsutil iam ch allUsers:objectViewer gs://photo-drop-bucket
 
 
+🧱 Requisitos
+
+Antes de comenzar, asegúrate de tener:
+
+- ✅ Una cuenta de Google Cloud
+- ✅ Un bucket creado (photo-drop-bucket)
+- ✅ Jenkins configurado con un agente y acceso a tu repositorio
+- ✅ Un Service Account con permisos adecuados
+- ✅ Habilitado: Cloud Run API, Artifact Registry, Cloud Storage, IAM
