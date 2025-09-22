@@ -2,10 +2,10 @@ pipeline {
   agent any
 
   environment {
-    REGION        = 'southamerica-west1'
+    REGION        = 'us-central1'
     REPO_NAME     = 'apps'
-    SERVICE_NAME  = 'fastapi-demo'
-    PROJECT_ID    = 'durable-ring-471120-i8'
+    SERVICE_NAME  = 'fastapi-bucket'
+    PROJECT_ID    = 'possible-sun-471215-d3'
     REGISTRY_HOST = "${REGION}-docker.pkg.dev"
   }
 
