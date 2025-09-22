@@ -2,7 +2,7 @@ pipeline {
   agent any
 
   environment {
-    REGION        = 'us-central1'
+    REGION        = 'us-central2'
     REPO_NAME     = 'apps'
     SERVICE_NAME  = 'fastapi-bucket'
     PROJECT_ID    = 'possible-sun-471215-d3'
