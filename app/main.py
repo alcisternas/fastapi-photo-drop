@@ -4,7 +4,7 @@ from app.gcs import upload_image_to_bucket
 app = FastAPI(title="Photo Drop", version="1.0.0")
 
 # Configuración del bucket (puedes usar una variable de entorno)
-BUCKET_NAME = "photo-drop-bucket"
+BUCKET_NAME = "photo-drop-bucket-ac"
 
 @app.get("/")
 def root():
@@ -24,3 +24,4 @@ async def upload(file: UploadFile = File(...)):
         return {"url": public_url}
     except Exception as e:
         raise HTTPException(status_code=500, detail=str(e))
+
